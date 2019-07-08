@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jay.dao.PCInfoDao">
+    <select id="getAllPCInfos" resultType="PCInfo">
+        select *
+        from pcinfo
+    </select>
+
+    <select id="getPCInfoByUserId" resultType="PCInfo">
+        select *
+        from pcinfo
+        where userId = #{0}
+    </select>
+
+    <select id="getPCInfoByMac" resultType="PCInfo">
+        select *
+        from pcinfo
+        where xipMac = #{0}
+    </select>
+
+    <insert id="addPCInfo" parameterType="PCInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into pcinfo (xipName, xipCpu, xipRam, xipBoard, xipBios, xipYp, xipXk, xipXsq, xipMac, xipIp, xipOs,
+                            xipType, fixedAssetsNo, remark, userId, updatedTime)
+        values (#{xipName}, #{xipCpu}, #{xipRam}, #{xipBoard}, #{xipBios}, #{xipYp}, #{xipXk},
+                #{xipXsq}, #{xipMac}, #{xipIp}, #{xipOs}, #{xipType}, #{fixedAssetsNo}, #{remark}, #{userId},
+                #{updatedTime})
+    </insert>
+
+    <update id="updatePCInfo" parameterType="PCInfo">
+        update pcinfo
+        <set>
+            <if test="xipName != null">xipName = #{xipName},</if>
+            <if test="xipCpu != null">xipCpu = #{xipCpu},</if>
+            <if test="xipRam != null">xipRam = #{xipRam},</if>
+            <if test="xipBoard != null">xipBoard = #{xipBoard},</if>
+            <if test="xipBios != null">xipBios = #{xipBios},</if>
+            <if test="xipYp != null">xipYp = #{xipYp},</if>
+            <if test="xipXk != null">xipXk = #{xipXk},</if>
+            <if test="xipXsq != null">xipXsq = #{xipXsq},</if>
+            <if test="xipIp != null">xipIp = #{xipIp},</if>
+            <if test="xipOs != null">xipOs = #{xipOs},</if>
+            <if test="xipType != null">xipType = #{xipType},</if>
+            <if test="fixedAssetsNo != null">fixedAssetsNo = #{fixedAssetsNo},</if>
+            <if test="remark != null">remark=#{remark},</if>
+            <if test="userId != null">userId=#{userId},</if>
+            <if test="updatedTime != null">updatedTime=#{updatedTime}</if>
+        </set>
+        where xipMac=#{xipMac}
+    </update>
+
+</mapper>
